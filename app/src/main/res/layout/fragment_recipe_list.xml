@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="20dp"
-            android:text="Toca una receta para ver su descripción"
+            android:text="Toca una receta"
             android:textSize="16sp" />
 
         <androidx.recyclerview.widget.RecyclerView

@@ -39,7 +39,16 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+
+    implementation("androidx.recyclerview:recyclerview:1.4.0")
+
+    implementation("androidx.cardview:cardview:1.0.0")
+
+    implementation("androidx.media3:media3-exoplayer:1.9.2")
+    implementation("androidx.media3:media3-ui:1.9.2")
+
     testImplementation(libs.junit)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }

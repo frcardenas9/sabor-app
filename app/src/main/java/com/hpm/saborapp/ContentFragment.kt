@@ -31,10 +31,11 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
         Recipe(
             id = 1,
             name = "Ajiaco santafereño",
-            category = "sopa",
+            category = "Sopa",
             preparationTime = 90,
             servings = 6,
             imageResId = R.drawable.ajiaco,
+            videoResId = R.raw.ajiaco,
             description = "El ajiaco bogotano o santafereño es una sopa típica y tradicional de la región de Bogotá, Cundinamarca, Colombia, a base de pollo y diferentes clases de papa. A diferencia de lo que sugiere su nombre, el ajiaco no es picante.",
             ingredients = listOf(
                 "1 pollo",
@@ -59,10 +60,11 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
         Recipe(
             id = 2,
             name = "Arepa de choclo",
-            category = "desayuno",
+            category = "Desayuno",
             preparationTime = 25,
             servings = 4,
             imageResId = R.drawable.arepa_choclo,
+            videoResId = R.raw.arepa_choclo,
             description = "La arepa de choclo es una preparación tradicional colombiana elaborada principalmente con maíz tierno. Es común acompañarla con queso y disfrutarla especialmente durante el desayuno o como merienda.",
             ingredients = listOf(
                 "Mazorca tierna",
@@ -85,10 +87,11 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
         Recipe(
             id = 3,
             name = "Sancocho de gallina",
-            category = "plato fuerte",
+            category = "Plato fuerte",
             preparationTime = 120,
             servings = 8,
             imageResId = R.drawable.sancocho_gallina,
+            videoResId = R.raw.sancocho_gallina,
             description = "El sancocho de gallina es una preparación tradicional colombiana que combina gallina, tubérculos, plátano y otros ingredientes en un caldo abundante y lleno de sabor.",
             ingredients = listOf(
                 "1 gallina",
@@ -113,10 +116,11 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
         Recipe(
             id = 4,
             name = "Postre de natas",
-            category = "postre",
+            category = "Postre",
             preparationTime = 40,
             servings = 6,
             imageResId = R.drawable.postre_natas,
+            videoResId = R.raw.postre_natas,
             description = "El postre de natas es una preparación tradicional colombiana elaborada a partir de la nata de la leche y azúcar, con una textura suave y un sabor dulce característico.",
             ingredients = listOf(
                 "Leche",
@@ -156,7 +160,12 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
         when (option) {
 
             "fotos" -> {
-                showRecipeList(view)
+                showRecipeList(
+                    view,
+                    "Galería de recetas",
+                    "Toca una receta para ver su descripción",
+                    false
+                )
             }
 
             "inicio" -> {
@@ -172,10 +181,11 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
             }
 
             "video" -> {
-                showSimpleContent(
+                showRecipeList(
                     view,
-                    "Video",
-                    "Videos disponibles."
+                    "Videos de recetas",
+                    "Toca una receta para ver su video",
+                    true
                 )
             }
 
@@ -236,7 +246,12 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
         description.text = descriptionText
     }
 
-    private fun showRecipeList(view: View) {
+    private fun showRecipeList(
+        view: View,
+        titleText: String,
+        subtitleText: String,
+        openVideo: Boolean
+    ) {
 
         val root = view.findViewById<ViewGroup>(
             R.id.contentRoot
@@ -253,6 +268,17 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
 
         root.addView(recipeListView)
 
+        val galleryTitle = recipeListView.findViewById<TextView>(
+            R.id.tvGalleryTitle
+        )
+
+        val gallerySubtitle = recipeListView.findViewById<TextView>(
+            R.id.tvGallerySubtitle
+        )
+
+        galleryTitle.text = titleText
+        gallerySubtitle.text = subtitleText
+
         val recyclerView = recipeListView.findViewById<RecyclerView>(
             R.id.recyclerRecipes
         )
@@ -264,10 +290,20 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
             recipes
         ) { recipe ->
 
-            showRecipeDetail(
-                root,
-                recipe
-            )
+            if (openVideo) {
+
+                showRecipeVideo(
+                    root,
+                    recipe
+                )
+
+            } else {
+
+                showRecipeDetail(
+                    root,
+                    recipe
+                )
+            }
         }
     }
 
@@ -331,7 +367,116 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
 
         backButton.setOnClickListener {
 
-            showRecipeList(root)
+            showRecipeList(
+                root,
+                "Galería de recetas",
+                "Toca una receta para ver su descripción",
+                false
+            )
         }
+    }
+
+    private fun showRecipeVideo(
+        root: ViewGroup,
+        recipe: Recipe
+    ) {
+
+        root.removeAllViews()
+
+        val videoView = LayoutInflater.from(requireContext())
+            .inflate(
+                R.layout.fragment_recipe_video,
+                root,
+                false
+            )
+
+        root.addView(videoView)
+
+        val title = videoView.findViewById<TextView>(
+            R.id.tvVideoRecipeTitle
+        )
+
+        val category = videoView.findViewById<TextView>(
+            R.id.chipCategory
+        )
+
+        val time = videoView.findViewById<TextView>(
+            R.id.chipTime
+        )
+
+        val servings = videoView.findViewById<TextView>(
+            R.id.chipServings
+        )
+
+        val description = videoView.findViewById<TextView>(
+            R.id.tvVideoDescription
+        )
+
+        val backButton = videoView.findViewById<Button>(
+            R.id.btnBackToVideoRecipes
+        )
+
+        val playerView = videoView.findViewById<androidx.media3.ui.PlayerView>(
+            R.id.playerView
+        )
+
+        title.text = "${recipe.name} paso a paso"
+
+        category.text = recipe.category
+
+        time.text = "${recipe.preparationTime} mins"
+
+        servings.text = "${recipe.servings} porciones"
+
+        description.text =
+            "En este video podrás conocer el proceso de preparación de ${recipe.name}, desde los primeros pasos hasta el resultado final."
+
+        val player = androidx.media3.exoplayer.ExoPlayer.Builder(
+            requireContext()
+        ).build()
+
+        playerView.player = player
+
+        val videoUri = android.net.Uri.parse(
+            "android.resource://${requireContext().packageName}/${recipe.videoResId}"
+        )
+
+        val mediaItem =
+            androidx.media3.common.MediaItem.fromUri(videoUri)
+
+        player.setMediaItem(mediaItem)
+
+        player.prepare()
+
+        player.playWhenReady = false
+
+        backButton.setOnClickListener {
+
+            player.release()
+
+            showRecipeList(
+                root,
+                "Videos de recetas",
+                "Toca una receta para ver su video",
+                true
+            )
+        }
+
+        videoView.addOnAttachStateChangeListener(
+            object : View.OnAttachStateChangeListener {
+
+                override fun onViewAttachedToWindow(
+                    v: View
+                ) {
+                    // No necesitamos hacer nada.
+                }
+
+                override fun onViewDetachedFromWindow(
+                    v: View
+                ) {
+                    player.release()
+                }
+            }
+        )
     }
 }

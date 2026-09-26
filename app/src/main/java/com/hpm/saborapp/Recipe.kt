@@ -7,6 +7,7 @@ data class Recipe(
     val preparationTime: Int,
     val servings: Int,
     val imageResId: Int,
+    val videoResId: Int,
     val description: String,
     val ingredients: List<String>,
     val steps: List<String>
