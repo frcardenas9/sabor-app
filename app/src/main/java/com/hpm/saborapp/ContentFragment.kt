@@ -42,7 +42,7 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
             preparationTime = 90,
             servings = 6,
             imageResId = R.drawable.ajiaco,
-            videoResId = R.raw.ajiaco,
+            videoResId = R.raw.postre_natas,
             description = "El ajiaco bogotano o santafereño es una sopa típica y tradicional de la región de Bogotá, Cundinamarca, Colombia, a base de pollo y diferentes clases de papa. A diferencia de lo que sugiere su nombre, el ajiaco no es picante.",
             ingredients = listOf(
                 "1 pollo",
@@ -71,7 +71,7 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
             preparationTime = 25,
             servings = 4,
             imageResId = R.drawable.arepa_choclo,
-            videoResId = R.raw.arepa_choclo,
+            videoResId = R.raw.postre_natas,
             description = "La arepa de choclo es una preparación tradicional colombiana elaborada principalmente con maíz tierno. Es común acompañarla con queso y disfrutarla especialmente durante el desayuno o como merienda.",
             ingredients = listOf(
                 "Mazorca tierna",
@@ -98,7 +98,7 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
             preparationTime = 120,
             servings = 8,
             imageResId = R.drawable.sancocho_gallina,
-            videoResId = R.raw.sancocho_gallina,
+            videoResId = R.raw.postre_natas,
             description = "El sancocho de gallina es una preparación tradicional colombiana que combina gallina, tubérculos, plátano y otros ingredientes en un caldo abundante y lleno de sabor.",
             ingredients = listOf(
                 "1 gallina",
