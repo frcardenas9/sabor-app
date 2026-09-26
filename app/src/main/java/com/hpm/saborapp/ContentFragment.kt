@@ -30,6 +30,12 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
 
         when (arguments?.getString(ARG_OPTION)) {
 
+            "inicio" -> {
+                title.text = "Bienvenido a SaborApp"
+                description.text =
+                    "Selecciona una opción del menú"
+            }
+
             "perfil" -> {
                 title.text = "Perfil"
                 description.text =

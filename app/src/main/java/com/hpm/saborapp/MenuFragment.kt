@@ -31,11 +31,16 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
     ) {
         super.onViewCreated(view, savedInstanceState)
 
+        val btnInicio = view.findViewById<Button>(R.id.btnInicio)
         val btnPerfil = view.findViewById<Button>(R.id.btnPerfil)
         val btnFotos = view.findViewById<Button>(R.id.btnFotos)
         val btnVideo = view.findViewById<Button>(R.id.btnVideo)
         val btnWeb = view.findViewById<Button>(R.id.btnWeb)
         val btnBotones = view.findViewById<Button>(R.id.btnBotones)
+
+        btnInicio.setOnClickListener {
+            listener?.onMenuOptionSelected("inicio")
+        }
 
         btnPerfil.setOnClickListener {
             listener?.onMenuOptionSelected("perfil")
