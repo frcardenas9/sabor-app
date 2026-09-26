@@ -10,6 +10,13 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import android.view.inputmethod.InputMethodManager
+import android.content.Context
+import android.webkit.WebChromeClient
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import android.widget.EditText
+import android.widget.Toast
 
 class ContentFragment : Fragment(R.layout.fragment_content) {
 
@@ -190,11 +197,7 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
             }
 
             "web" -> {
-                showSimpleContent(
-                    view,
-                    "Web",
-                    "Página web."
-                )
+                showWebContent(view)
             }
 
             "botones" -> {
@@ -467,9 +470,7 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
 
                 override fun onViewAttachedToWindow(
                     v: View
-                ) {
-                    // No necesitamos hacer nada.
-                }
+                ) { }
 
                 override fun onViewDetachedFromWindow(
                     v: View
@@ -478,5 +479,79 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
                 }
             }
         )
+    }
+
+    private fun showWebContent(view: View) {
+        val root = view.findViewById<ViewGroup>(
+            R.id.contentRoot
+        )
+
+        root.removeAllViews()
+
+        val webViewLayout = LayoutInflater.from(requireContext())
+            .inflate(
+                R.layout.fragment_web,
+                root,
+                false
+            )
+
+        root.addView(webViewLayout)
+
+        val addressInput = webViewLayout.findViewById<EditText>(
+            R.id.etWebAddress
+        )
+
+        val loadButton = webViewLayout.findViewById<Button>(
+            R.id.btnLoadWeb
+        )
+
+        val webView = webViewLayout.findViewById<WebView>(
+            R.id.webView
+        )
+
+        webView.webViewClient = WebViewClient()
+
+        webView.settings.javaScriptEnabled = true
+
+        webView.webChromeClient = WebChromeClient()
+
+        loadButton.setOnClickListener {
+
+            val address = addressInput.text
+                .toString()
+                .trim()
+
+            if (address.isEmpty()) {
+
+                addressInput.error = "Ingresa una dirección"
+
+                return@setOnClickListener
+            }
+
+            val url = normalizeUrl(address)
+
+            webView.loadUrl(url)
+
+            val inputMethodManager =
+                requireContext().getSystemService(
+                    Context.INPUT_METHOD_SERVICE
+                ) as InputMethodManager
+
+            inputMethodManager.hideSoftInputFromWindow(
+                addressInput.windowToken,
+                0
+            )
+        }
+    }
+
+    private fun normalizeUrl(address: String): String {
+        return if (
+            address.startsWith("http://") ||
+            address.startsWith("https://")
+        ) {
+            address
+        } else {
+            "https://$address"
+        }
     }
 }
