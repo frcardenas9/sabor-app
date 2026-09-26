@@ -1,11 +1,18 @@
 package com.hpm.saborapp
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class ContentFragment : Fragment(R.layout.fragment_content) {
+
     companion object {
 
         private const val ARG_OPTION = "option"
@@ -19,58 +26,312 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
         }
     }
 
+    private val recipes = listOf(
+
+        Recipe(
+            id = 1,
+            name = "Ajiaco santafereño",
+            category = "sopa",
+            preparationTime = 90,
+            servings = 6,
+            imageResId = R.drawable.ajiaco,
+            description = "El ajiaco bogotano o santafereño es una sopa típica y tradicional de la región de Bogotá, Cundinamarca, Colombia, a base de pollo y diferentes clases de papa. A diferencia de lo que sugiere su nombre, el ajiaco no es picante.",
+            ingredients = listOf(
+                "1 pollo",
+                "Papa criolla",
+                "Papa pastusa",
+                "Papa sabanera",
+                "Guascas",
+                "Mazorca",
+                "Agua",
+                "Sal al gusto"
+            ),
+            steps = listOf(
+                "Cocinar el pollo en agua con sal.",
+                "Agregar las papas y la mazorca.",
+                "Cocinar hasta que las papas estén blandas.",
+                "Agregar las guascas.",
+                "Continuar la cocción durante unos minutos.",
+                "Servir caliente."
+            )
+        ),
+
+        Recipe(
+            id = 2,
+            name = "Arepa de choclo",
+            category = "desayuno",
+            preparationTime = 25,
+            servings = 4,
+            imageResId = R.drawable.arepa_choclo,
+            description = "La arepa de choclo es una preparación tradicional colombiana elaborada principalmente con maíz tierno. Es común acompañarla con queso y disfrutarla especialmente durante el desayuno o como merienda.",
+            ingredients = listOf(
+                "Mazorca tierna",
+                "Harina de maíz",
+                "Leche",
+                "Azúcar",
+                "Sal",
+                "Queso"
+            ),
+            steps = listOf(
+                "Desgranar las mazorcas.",
+                "Moler o licuar el maíz con la leche.",
+                "Mezclar con la harina, azúcar y sal.",
+                "Formar las arepas.",
+                "Cocinarlas en una plancha caliente.",
+                "Servir con queso."
+            )
+        ),
+
+        Recipe(
+            id = 3,
+            name = "Sancocho de gallina",
+            category = "plato fuerte",
+            preparationTime = 120,
+            servings = 8,
+            imageResId = R.drawable.sancocho_gallina,
+            description = "El sancocho de gallina es una preparación tradicional colombiana que combina gallina, tubérculos, plátano y otros ingredientes en un caldo abundante y lleno de sabor.",
+            ingredients = listOf(
+                "1 gallina",
+                "Plátano verde",
+                "Yuca",
+                "Papa",
+                "Mazorca",
+                "Cebolla",
+                "Cilantro",
+                "Sal al gusto"
+            ),
+            steps = listOf(
+                "Cocinar la gallina hasta que esté tierna.",
+                "Agregar el plátano y la mazorca.",
+                "Añadir la yuca y la papa.",
+                "Agregar los condimentos.",
+                "Cocinar hasta que todos los ingredientes estén blandos.",
+                "Servir caliente."
+            )
+        ),
+
+        Recipe(
+            id = 4,
+            name = "Postre de natas",
+            category = "postre",
+            preparationTime = 40,
+            servings = 6,
+            imageResId = R.drawable.postre_natas,
+            description = "El postre de natas es una preparación tradicional colombiana elaborada a partir de la nata de la leche y azúcar, con una textura suave y un sabor dulce característico.",
+            ingredients = listOf(
+                "Leche",
+                "Azúcar",
+                "Canela",
+                "Yemas de huevo",
+                "Esencia de vainilla"
+            ),
+            steps = listOf(
+                "Calentar la leche.",
+                "Retirar cuidadosamente las natas que se formen.",
+                "Continuar el proceso hasta obtener suficiente nata.",
+                "Preparar la mezcla con las yemas y el azúcar.",
+                "Incorporar las natas.",
+                "Enfriar antes de servir."
+            )
+        )
+    )
+
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        val title = view.findViewById<TextView>(R.id.tvContentTitle)
-        val description = view.findViewById<TextView>(R.id.tvContentDescription)
+        showOption(
+            view,
+            arguments?.getString(ARG_OPTION)
+        )
+    }
 
-        when (arguments?.getString(ARG_OPTION)) {
+    private fun showOption(
+        view: View,
+        option: String?
+    ) {
+
+        when (option) {
+
+            "fotos" -> {
+                showRecipeList(view)
+            }
 
             "inicio" -> {
-                title.text = "Bienvenido a SaborApp"
-                description.text =
-                    "Selecciona una opción del menú"
+                showDefaultContent(view)
             }
 
             "perfil" -> {
-                title.text = "Perfil"
-                description.text =
+                showSimpleContent(
+                    view,
+                    "Perfil",
                     "Información del perfil."
-            }
-
-            "fotos" -> {
-                title.text = "Fotos"
-                description.text =
-                    "Galería de fotos y recetas."
+                )
             }
 
             "video" -> {
-                title.text = "Video"
-                description.text =
+                showSimpleContent(
+                    view,
+                    "Video",
                     "Videos disponibles."
+                )
             }
 
             "web" -> {
-                title.text = "Web"
-                description.text =
+                showSimpleContent(
+                    view,
+                    "Web",
                     "Página web."
+                )
             }
 
             "botones" -> {
-                title.text = "Botones"
-                description.text =
+                showSimpleContent(
+                    view,
+                    "Botones",
                     "Ejemplos de botones."
+                )
             }
 
             else -> {
-                title.text = "Bienvenido a SaborApp"
-                description.text =
-                    "Selecciona una opción del menú."
+                showDefaultContent(view)
             }
+        }
+    }
+
+    private fun showDefaultContent(view: View) {
+
+        val title = view.findViewById<TextView>(
+            R.id.tvContentTitle
+        )
+
+        val description = view.findViewById<TextView>(
+            R.id.tvContentDescription
+        )
+
+        title.text = "Bienvenido a SaborApp"
+
+        description.text =
+            "Selecciona una opción del menú."
+    }
+
+    private fun showSimpleContent(
+        view: View,
+        titleText: String,
+        descriptionText: String
+    ) {
+
+        val title = view.findViewById<TextView>(
+            R.id.tvContentTitle
+        )
+
+        val description = view.findViewById<TextView>(
+            R.id.tvContentDescription
+        )
+
+        title.text = titleText
+
+        description.text = descriptionText
+    }
+
+    private fun showRecipeList(view: View) {
+
+        val root = view.findViewById<ViewGroup>(
+            R.id.contentRoot
+        )
+
+        root.removeAllViews()
+
+        val recipeListView = LayoutInflater.from(requireContext())
+            .inflate(
+                R.layout.fragment_recipe_list,
+                root,
+                false
+            )
+
+        root.addView(recipeListView)
+
+        val recyclerView = recipeListView.findViewById<RecyclerView>(
+            R.id.recyclerRecipes
+        )
+
+        recyclerView.layoutManager =
+            LinearLayoutManager(requireContext())
+
+        recyclerView.adapter = RecipeAdapter(
+            recipes
+        ) { recipe ->
+
+            showRecipeDetail(
+                root,
+                recipe
+            )
+        }
+    }
+
+    private fun showRecipeDetail(
+        root: ViewGroup,
+        recipe: Recipe
+    ) {
+
+        root.removeAllViews()
+
+        val detailView = LayoutInflater.from(requireContext())
+            .inflate(
+                R.layout.fragment_recipe_detail,
+                root,
+                false
+            )
+
+        root.addView(detailView)
+
+        val title = detailView.findViewById<TextView>(
+            R.id.tvDetailTitle
+        )
+
+        val image = detailView.findViewById<ImageView>(
+            R.id.imgDetailRecipe
+        )
+
+        val description = detailView.findViewById<TextView>(
+            R.id.tvDetailDescription
+        )
+
+        val ingredients = detailView.findViewById<TextView>(
+            R.id.tvIngredients
+        )
+
+        val steps = detailView.findViewById<TextView>(
+            R.id.tvSteps
+        )
+
+        val backButton = detailView.findViewById<Button>(
+            R.id.btnBackToRecipes
+        )
+
+        title.text = recipe.name
+
+        image.setImageResource(
+            recipe.imageResId
+        )
+
+        description.text = recipe.description
+
+        ingredients.text = recipe.ingredients.joinToString(
+            separator = "\n"
+        ) { ingredient ->
+            "• $ingredient"
+        }
+
+        steps.text = recipe.steps.mapIndexed { index, step ->
+            "${index + 1}. $step"
+        }.joinToString("\n")
+
+        backButton.setOnClickListener {
+
+            showRecipeList(root)
         }
     }
 }
