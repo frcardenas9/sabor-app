@@ -47,10 +47,6 @@ class MainActivity :
                     ContentFragment()
                 )
                 .commit()
-
-            drawerLayout.openDrawer(
-                androidx.core.view.GravityCompat.START
-            )
         }
     }
 
