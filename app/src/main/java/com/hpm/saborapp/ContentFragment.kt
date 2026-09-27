@@ -1,31 +1,33 @@
 package com.hpm.saborapp
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import android.webkit.WebChromeClient
-import android.webkit.WebView
-import android.webkit.WebViewClient
-import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Spinner
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import android.view.inputmethod.InputMethodManager
+import android.content.Context
+import android.webkit.WebChromeClient
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import android.widget.EditText
+import android.widget.Toast
+import android.content.Intent
+import android.widget.ArrayAdapter
+import android.widget.CheckBox
+import android.widget.Spinner
 import com.google.android.material.switchmaterial.SwitchMaterial
+import android.widget.ScrollView
 
 class ContentFragment : Fragment(R.layout.fragment_content) {
 
     companion object {
+
         private const val ARG_OPTION = "option"
 
         fun newInstance(option: String): ContentFragment {
@@ -37,9 +39,6 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
         }
     }
 
-    /*
-     * Se conservan los videos propios de cada receta.
-     */
     private val recipes = listOf(
 
         Recipe(
@@ -154,49 +153,153 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
         )
     )
 
-    /*
-     * Cantidades base por porción para la calculadora.
-     * Se incorpora desde origin/main.
-     */
     private val recipeIngredients = mapOf(
 
         1 to listOf(
-            RecipeIngredient("Pollo", 166.67, IngredientUnit.GRAMS),
-            RecipeIngredient("Papa criolla", 100.0, IngredientUnit.GRAMS),
-            RecipeIngredient("Papa pastusa", 100.0, IngredientUnit.GRAMS),
-            RecipeIngredient("Papa sabanera", 100.0, IngredientUnit.GRAMS),
-            RecipeIngredient("Guascas", 5.0, IngredientUnit.GRAMS),
-            RecipeIngredient("Mazorca", 0.5, IngredientUnit.UNITS),
-            RecipeIngredient("Agua", 500.0, IngredientUnit.MILLILITERS),
-            RecipeIngredient("Sal", null, IngredientUnit.TO_TASTE)
+            RecipeIngredient(
+                "Pollo",
+                166.67,
+                IngredientUnit.GRAMS
+            ),
+            RecipeIngredient(
+                "Papa criolla",
+                100.0,
+                IngredientUnit.GRAMS
+            ),
+            RecipeIngredient(
+                "Papa pastusa",
+                100.0,
+                IngredientUnit.GRAMS
+            ),
+            RecipeIngredient(
+                "Papa sabanera",
+                100.0,
+                IngredientUnit.GRAMS
+            ),
+            RecipeIngredient(
+                "Guascas",
+                5.0,
+                IngredientUnit.GRAMS
+            ),
+            RecipeIngredient(
+                "Mazorca",
+                0.5,
+                IngredientUnit.UNITS
+            ),
+            RecipeIngredient(
+                "Agua",
+                500.0,
+                IngredientUnit.MILLILITERS
+            ),
+            RecipeIngredient(
+                "Sal",
+                null,
+                IngredientUnit.TO_TASTE
+            )
         ),
 
         2 to listOf(
-            RecipeIngredient("Mazorca tierna", 1.0, IngredientUnit.UNITS),
-            RecipeIngredient("Harina de maíz", 75.0, IngredientUnit.GRAMS),
-            RecipeIngredient("Leche", 100.0, IngredientUnit.MILLILITERS),
-            RecipeIngredient("Azúcar", 10.0, IngredientUnit.GRAMS),
-            RecipeIngredient("Sal", null, IngredientUnit.TO_TASTE),
-            RecipeIngredient("Queso", 50.0, IngredientUnit.GRAMS)
+            RecipeIngredient(
+                "Mazorca tierna",
+                1.0,
+                IngredientUnit.UNITS
+            ),
+            RecipeIngredient(
+                "Harina de maíz",
+                75.0,
+                IngredientUnit.GRAMS
+            ),
+            RecipeIngredient(
+                "Leche",
+                100.0,
+                IngredientUnit.MILLILITERS
+            ),
+            RecipeIngredient(
+                "Azúcar",
+                10.0,
+                IngredientUnit.GRAMS
+            ),
+            RecipeIngredient(
+                "Sal",
+                null,
+                IngredientUnit.TO_TASTE
+            ),
+            RecipeIngredient(
+                "Queso",
+                50.0,
+                IngredientUnit.GRAMS
+            )
         ),
 
         3 to listOf(
-            RecipeIngredient("Gallina", 250.0, IngredientUnit.GRAMS),
-            RecipeIngredient("Plátano verde", 0.5, IngredientUnit.UNITS),
-            RecipeIngredient("Yuca", 150.0, IngredientUnit.GRAMS),
-            RecipeIngredient("Papa", 100.0, IngredientUnit.GRAMS),
-            RecipeIngredient("Mazorca", 0.5, IngredientUnit.UNITS),
-            RecipeIngredient("Cebolla", 0.25, IngredientUnit.UNITS),
-            RecipeIngredient("Cilantro", 5.0, IngredientUnit.GRAMS),
-            RecipeIngredient("Sal", null, IngredientUnit.TO_TASTE)
+            RecipeIngredient(
+                "Gallina",
+                250.0,
+                IngredientUnit.GRAMS
+            ),
+            RecipeIngredient(
+                "Plátano verde",
+                0.5,
+                IngredientUnit.UNITS
+            ),
+            RecipeIngredient(
+                "Yuca",
+                150.0,
+                IngredientUnit.GRAMS
+            ),
+            RecipeIngredient(
+                "Papa",
+                100.0,
+                IngredientUnit.GRAMS
+            ),
+            RecipeIngredient(
+                "Mazorca",
+                0.5,
+                IngredientUnit.UNITS
+            ),
+            RecipeIngredient(
+                "Cebolla",
+                0.25,
+                IngredientUnit.UNITS
+            ),
+            RecipeIngredient(
+                "Cilantro",
+                5.0,
+                IngredientUnit.GRAMS
+            ),
+            RecipeIngredient(
+                "Sal",
+                null,
+                IngredientUnit.TO_TASTE
+            )
         ),
 
         4 to listOf(
-            RecipeIngredient("Leche", 300.0, IngredientUnit.MILLILITERS),
-            RecipeIngredient("Azúcar", 50.0, IngredientUnit.GRAMS),
-            RecipeIngredient("Canela", 2.0, IngredientUnit.GRAMS),
-            RecipeIngredient("Yemas de huevo", 1.0, IngredientUnit.UNITS),
-            RecipeIngredient("Esencia de vainilla", 2.0, IngredientUnit.MILLILITERS)
+            RecipeIngredient(
+                "Leche",
+                300.0,
+                IngredientUnit.MILLILITERS
+            ),
+            RecipeIngredient(
+                "Azúcar",
+                50.0,
+                IngredientUnit.GRAMS
+            ),
+            RecipeIngredient(
+                "Canela",
+                2.0,
+                IngredientUnit.GRAMS
+            ),
+            RecipeIngredient(
+                "Yemas de huevo",
+                1.0,
+                IngredientUnit.UNITS
+            ),
+            RecipeIngredient(
+                "Esencia de vainilla",
+                2.0,
+                IngredientUnit.MILLILITERS
+            )
         )
     )
 
@@ -233,17 +336,9 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
             }
 
             "perfil" -> {
-                showSimpleContent(
-                    view,
-                    "Perfil del chef",
-                    "Conoce la trayectoria, experiencia y filosofía culinaria de la autora del recetario."
-                )
+                showProfileContent(view)
             }
 
-            /*
-             * Se conserva el comportamiento adaptado al mockup:
-             * al tocar Video se abre directamente la primera receta.
-             */
             "video" -> {
                 val root = view.findViewById<ViewGroup>(
                     R.id.contentRoot
@@ -255,16 +350,10 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
                 )
             }
 
-            /*
-             * Se incorpora la funcionalidad real de Web de origin/main.
-             */
             "web" -> {
                 showWebContent(view)
             }
 
-            /*
-             * Se incorpora la calculadora de porciones y compartir.
-             */
             "botones" -> {
                 showPortionCalculator(view)
             }
@@ -281,14 +370,76 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
             R.id.tvContentTitle
         )
 
+        val subtitle = view.findViewById<TextView>(
+            R.id.tvContentSubtitle
+        )
+
+        val descriptionTitle = view.findViewById<TextView>(
+            R.id.tvDescriptionTitle
+        )
+
         val description = view.findViewById<TextView>(
             R.id.tvContentDescription
         )
 
-        title.text = "Bienvenido a SaborApp"
+        val whatYouFindTitle = view.findViewById<TextView>(
+            R.id.tvWhatYouFindTitle
+        )
+
+        val whatYouFind = view.findViewById<TextView>(
+            R.id.tvWhatYouFind
+        )
+
+        val aboutTitle = view.findViewById<TextView>(
+            R.id.tvAboutTitle
+        )
+
+        val about = view.findViewById<TextView>(
+            R.id.tvAbout
+        )
+
+        val icon = view.findViewById<ImageView>(
+            R.id.imgSaborApp
+        )
+
+        icon.visibility = View.VISIBLE
+
+        title.text = "SaborApp"
+
+        subtitle.text = "Tu recetario digital"
+
+        descriptionTitle.visibility = View.VISIBLE
+        description.visibility = View.VISIBLE
+
+        whatYouFindTitle.visibility = View.VISIBLE
+        whatYouFind.visibility = View.VISIBLE
+
+        aboutTitle.visibility = View.VISIBLE
+        about.visibility = View.VISIBLE
+
+        descriptionTitle.text = "Descripción"
 
         description.text =
-            "Selecciona una opción del menú."
+            "SaborApp es un recetario digital diseñado para " +
+                    "consultar y explorar diferentes preparaciones " +
+                    "culinarias de manera sencilla y organizada."
+
+        whatYouFindTitle.text = "¿Qué encontrarás?"
+
+        whatYouFind.text =
+            "• Recetas con ingredientes y preparación\n" +
+                    "• Fotografías de las preparaciones\n" +
+                    "• Videos relacionados con las recetas\n" +
+                    "• Y mucho más..."
+
+        aboutTitle.text = "Sobre el recetario"
+
+        about.text =
+            "Nuestro objetivo es reunir diferentes preparaciones " +
+                    "en un solo espacio digital, facilitando la consulta " +
+                    "de ingredientes, procedimientos y recursos " +
+                    "multimedia para acompañar al usuario durante la " +
+                    "preparación de sus recetas."
     }
 
     private fun showSimpleContent(
@@ -301,12 +452,52 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
             R.id.tvContentTitle
         )
 
+        val subtitle = view.findViewById<TextView>(
+            R.id.tvContentSubtitle
+        )
+
+        val descriptionTitle = view.findViewById<TextView>(
+            R.id.tvDescriptionTitle
+        )
+
         val description = view.findViewById<TextView>(
             R.id.tvContentDescription
         )
 
+        val whatYouFindTitle = view.findViewById<TextView>(
+            R.id.tvWhatYouFindTitle
+        )
+
+        val whatYouFind = view.findViewById<TextView>(
+            R.id.tvWhatYouFind
+        )
+
+        val aboutTitle = view.findViewById<TextView>(
+            R.id.tvAboutTitle
+        )
+
+        val about = view.findViewById<TextView>(
+            R.id.tvAbout
+        )
+
+        val icon = view.findViewById<ImageView>(
+            R.id.imgSaborApp
+        )
+
+        icon.visibility = View.GONE
+
         title.text = titleText
-        description.text = descriptionText
+
+        subtitle.text = descriptionText
+
+        descriptionTitle.visibility = View.GONE
+        description.visibility = View.GONE
+
+        whatYouFindTitle.visibility = View.GONE
+        whatYouFind.visibility = View.GONE
+
+        aboutTitle.visibility = View.GONE
+        about.visibility = View.GONE
     }
 
     private fun showRecipeList(
@@ -411,7 +602,11 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
         )
 
         title.text = recipe.name
-        image.setImageResource(recipe.imageResId)
+
+        image.setImageResource(
+            recipe.imageResId
+        )
+
         description.text = recipe.description
 
         ingredients.text = recipe.ingredients.joinToString(
@@ -425,6 +620,7 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
         }.joinToString("\n")
 
         backButton.setOnClickListener {
+
             showRecipeList(
                 root,
                 "Galería de recetas",
@@ -479,8 +675,11 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
         )
 
         title.text = "${recipe.name} paso a paso"
+
         category.text = recipe.category
+
         time.text = "${recipe.preparationTime} min"
+
         servings.text = "${recipe.servings} porciones"
 
         description.text =
@@ -500,13 +699,11 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
             androidx.media3.common.MediaItem.fromUri(videoUri)
 
         player.setMediaItem(mediaItem)
+
         player.prepare()
+
         player.playWhenReady = false
 
-        /*
-         * Se mantiene el acceso al listado de videos
-         * desde el botón "Volver a recetas".
-         */
         backButton.setOnClickListener {
 
             player.release()
@@ -524,9 +721,7 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
 
                 override fun onViewAttachedToWindow(
                     v: View
-                ) {
-                    // Sin acción.
-                }
+                ) { }
 
                 override fun onViewDetachedFromWindow(
                     v: View
@@ -537,11 +732,7 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
         )
     }
 
-    /*
-     * Funcionalidad Web incorporada desde origin/main.
-     */
     private fun showWebContent(view: View) {
-
         val root = view.findViewById<ViewGroup>(
             R.id.contentRoot
         )
@@ -570,7 +761,9 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
         )
 
         webView.webViewClient = WebViewClient()
+
         webView.settings.javaScriptEnabled = true
+
         webView.webChromeClient = WebChromeClient()
 
         loadButton.setOnClickListener {
@@ -581,8 +774,7 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
 
             if (address.isEmpty()) {
 
-                addressInput.error =
-                    "Ingresa una dirección"
+                addressInput.error = "Ingresa una dirección"
 
                 return@setOnClickListener
             }
@@ -603,10 +795,7 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
         }
     }
 
-    private fun normalizeUrl(
-        address: String
-    ): String {
-
+    private fun normalizeUrl(address: String): String {
         return if (
             address.startsWith("http://") ||
             address.startsWith("https://")
@@ -617,12 +806,7 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
         }
     }
 
-    /*
-     * Calculadora de porciones incorporada desde origin/main.
-     */
-    private fun showPortionCalculator(
-        view: View
-    ) {
+    private fun showPortionCalculator(view: View) {
 
         val root = view.findViewById<ViewGroup>(
             R.id.contentRoot
@@ -695,18 +879,15 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
 
         fun updateResult() {
 
-            val selectedPosition =
-                spinnerRecipe.selectedItemPosition
+            val selectedPosition = spinnerRecipe.selectedItemPosition
 
             if (selectedPosition < 0) {
                 return
             }
 
-            val selectedRecipe =
-                recipes[selectedPosition]
+            val selectedRecipe = recipes[selectedPosition]
 
-            portionCountText.text =
-                portions.toString()
+            portionCountText.text = portions.toString()
 
             resultTitle.text =
                 "Resultado para $portions " +
@@ -716,10 +897,9 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
                             "porciones"
                         }
 
-            val ingredients =
-                recipeIngredients[
-                    selectedRecipe.id
-                ] ?: emptyList()
+            val ingredients = recipeIngredients[
+                selectedRecipe.id
+            ] ?: emptyList()
 
             resultIngredients.text =
                 ingredients.joinToString("\n") { ingredient ->
@@ -733,8 +913,7 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
                     }"
                 }
 
-            decreaseButton.isEnabled =
-                portions > 1
+            decreaseButton.isEnabled = portions > 1
         }
 
         decreaseButton.setOnClickListener {
@@ -752,8 +931,7 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
         }
 
         spinnerRecipe.onItemSelectedListener =
-            object :
-                android.widget.AdapterView.OnItemSelectedListener {
+            object : android.widget.AdapterView.OnItemSelectedListener {
 
                 override fun onItemSelected(
                     parent: android.widget.AdapterView<*>?,
@@ -767,7 +945,6 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
                 override fun onNothingSelected(
                     parent: android.widget.AdapterView<*>?
                 ) {
-                    // Sin acción.
                 }
             }
 
@@ -805,22 +982,20 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
         includeSteps: Boolean
     ) {
 
-        val ingredients =
-            recipeIngredients[
-                recipe.id
-            ] ?: emptyList()
+        val ingredients = recipeIngredients[
+            recipe.id
+        ] ?: emptyList()
 
-        val ingredientText =
-            ingredients.joinToString("\n") { ingredient ->
+        val ingredientText = ingredients.joinToString("\n") { ingredient ->
 
-                "• ${ingredient.name}: ${
-                    PortionCalculator.formatAmount(
-                        ingredient,
-                        portions,
-                        showGrams
-                    )
-                }"
-            }
+            "• ${ingredient.name}: ${
+                PortionCalculator.formatAmount(
+                    ingredient,
+                    portions,
+                    showGrams
+                )
+            }"
+        }
 
         val portionsText =
             if (portions == 1) {
@@ -878,5 +1053,66 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
             "¡Receta lista para compartir!",
             Toast.LENGTH_SHORT
         ).show()
+    }
+
+    private fun showProfileContent(view: View) {
+
+        val root = view.findViewById<ViewGroup>(
+            R.id.contentRoot
+        )
+
+        root.removeAllViews()
+
+        val profileView = LayoutInflater.from(requireContext())
+            .inflate(
+                R.layout.fragment_profile,
+                root,
+                false
+            )
+
+        root.addView(profileView)
+
+        val studiesScroll = profileView.findViewById<ScrollView>(
+            R.id.studiesScroll
+        )
+
+        val experienceScroll = profileView.findViewById<ScrollView>(
+            R.id.experienceScroll
+        )
+
+        enableInnerScroll(studiesScroll)
+        enableInnerScroll(experienceScroll)
+    }
+
+    private fun enableInnerScroll(
+        scrollView: ScrollView
+    ) {
+
+        scrollView.setOnTouchListener { view, event ->
+
+            when (event.actionMasked) {
+
+                android.view.MotionEvent.ACTION_DOWN -> {
+
+                    view.parent
+                        ?.requestDisallowInterceptTouchEvent(true)
+                }
+
+                android.view.MotionEvent.ACTION_MOVE -> {
+
+                    view.parent
+                        ?.requestDisallowInterceptTouchEvent(true)
+                }
+
+                android.view.MotionEvent.ACTION_UP,
+                android.view.MotionEvent.ACTION_CANCEL -> {
+
+                    view.parent
+                        ?.requestDisallowInterceptTouchEvent(false)
+                }
+            }
+
+            false
+        }
     }
 }

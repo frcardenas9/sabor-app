@@ -17,21 +17,86 @@
             android:orientation="vertical"
             android:padding="24dp">
 
+            <ImageView
+                android:id="@+id/imgSaborApp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="Icono de SaborApp"
+                android:scaleType="centerInside"
+                android:src="@drawable/saborapp_icon" />
+
             <TextView
                 android:id="@+id/tvContentTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bienvenido a SaborApp"
-                android:textSize="28sp"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="SaborApp"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvContentSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:text="Tu recetario digital"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tvDescriptionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="Descripción"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvContentDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Selecciona una opción del menú."
-                android:textSize="18sp" />
+                android:layout_marginTop="8dp"
+                android:text="SaborApp es un recetario digital diseñado para consultar y explorar diferentes preparaciones culinarias de manera sencilla y organizada."
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvWhatYouFindTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="¿Qué encontrarás?"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvWhatYouFind"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="6dp"
+                android:text="• Recetas con ingredientes y preparación&#10;• Fotografías de las preparaciones&#10;• Videos relacionados con las recetas&#10;• Y mucho más..."
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvAboutTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="Sobre el recetario"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvAbout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="6dp"
+                android:text="Nuestro objetivo es reunir diferentes preparaciones en un solo espacio digital, facilitando la consulta de ingredientes, procedimientos y recursos multimedia para acompañar al usuario durante la preparación de sus recetas."
+                android:textSize="16sp" />
 
         </LinearLayout>
 
