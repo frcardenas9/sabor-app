@@ -326,7 +326,7 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
                 showRecipeList(
                     view,
                     "Galería de recetas",
-                    "Toca una receta para ver su descripción",
+                    "Selecciona una receta para conocer sus ingredientes y preparación",
                     false
                 )
             }
@@ -340,11 +340,13 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
             }
 
             "video" -> {
-                showRecipeList(
-                    view,
-                    "Videos de recetas",
-                    "Toca una receta para ver su video",
-                    true
+                val root = view.findViewById<ViewGroup>(
+                    R.id.contentRoot
+                )
+
+                showRecipeVideo(
+                    root,
+                    recipes.first()
                 )
             }
 
@@ -622,7 +624,7 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
             showRecipeList(
                 root,
                 "Galería de recetas",
-                "Toca una receta para ver su descripción",
+                "Selecciona una receta para conocer sus ingredientes y preparación",
                 false
             )
         }
@@ -676,7 +678,7 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
 
         category.text = recipe.category
 
-        time.text = "${recipe.preparationTime} mins"
+        time.text = "${recipe.preparationTime} min"
 
         servings.text = "${recipe.servings} porciones"
 

@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+
+    <color name="wine_dark">#2E0D16</color>
+    <color name="wine">#581A2D</color>
+    <color name="wine_light">#6B263C</color>
+
+    <color name="cream">#FAF5F0</color>
+    <color name="cream_menu">#F8EFE5</color>
+    <color name="peach">#F4DDC3</color>
+
+    <color name="gold">#D6A369</color>
+    <color name="orange">#E6A03C</color>
+
+    <color name="text_primary">#3B292C</color>
+    <color name="text_secondary">#766568</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
 </resources>
