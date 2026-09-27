@@ -17,6 +17,11 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.EditText
 import android.widget.Toast
+import android.content.Intent
+import android.widget.ArrayAdapter
+import android.widget.CheckBox
+import android.widget.Spinner
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 class ContentFragment : Fragment(R.layout.fragment_content) {
 
@@ -147,6 +152,156 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
         )
     )
 
+    private val recipeIngredients = mapOf(
+
+        1 to listOf(
+            RecipeIngredient(
+                "Pollo",
+                166.67,
+                IngredientUnit.GRAMS
+            ),
+            RecipeIngredient(
+                "Papa criolla",
+                100.0,
+                IngredientUnit.GRAMS
+            ),
+            RecipeIngredient(
+                "Papa pastusa",
+                100.0,
+                IngredientUnit.GRAMS
+            ),
+            RecipeIngredient(
+                "Papa sabanera",
+                100.0,
+                IngredientUnit.GRAMS
+            ),
+            RecipeIngredient(
+                "Guascas",
+                5.0,
+                IngredientUnit.GRAMS
+            ),
+            RecipeIngredient(
+                "Mazorca",
+                0.5,
+                IngredientUnit.UNITS
+            ),
+            RecipeIngredient(
+                "Agua",
+                500.0,
+                IngredientUnit.MILLILITERS
+            ),
+            RecipeIngredient(
+                "Sal",
+                null,
+                IngredientUnit.TO_TASTE
+            )
+        ),
+
+        2 to listOf(
+            RecipeIngredient(
+                "Mazorca tierna",
+                1.0,
+                IngredientUnit.UNITS
+            ),
+            RecipeIngredient(
+                "Harina de maíz",
+                75.0,
+                IngredientUnit.GRAMS
+            ),
+            RecipeIngredient(
+                "Leche",
+                100.0,
+                IngredientUnit.MILLILITERS
+            ),
+            RecipeIngredient(
+                "Azúcar",
+                10.0,
+                IngredientUnit.GRAMS
+            ),
+            RecipeIngredient(
+                "Sal",
+                null,
+                IngredientUnit.TO_TASTE
+            ),
+            RecipeIngredient(
+                "Queso",
+                50.0,
+                IngredientUnit.GRAMS
+            )
+        ),
+
+        3 to listOf(
+            RecipeIngredient(
+                "Gallina",
+                250.0,
+                IngredientUnit.GRAMS
+            ),
+            RecipeIngredient(
+                "Plátano verde",
+                0.5,
+                IngredientUnit.UNITS
+            ),
+            RecipeIngredient(
+                "Yuca",
+                150.0,
+                IngredientUnit.GRAMS
+            ),
+            RecipeIngredient(
+                "Papa",
+                100.0,
+                IngredientUnit.GRAMS
+            ),
+            RecipeIngredient(
+                "Mazorca",
+                0.5,
+                IngredientUnit.UNITS
+            ),
+            RecipeIngredient(
+                "Cebolla",
+                0.25,
+                IngredientUnit.UNITS
+            ),
+            RecipeIngredient(
+                "Cilantro",
+                5.0,
+                IngredientUnit.GRAMS
+            ),
+            RecipeIngredient(
+                "Sal",
+                null,
+                IngredientUnit.TO_TASTE
+            )
+        ),
+
+        4 to listOf(
+            RecipeIngredient(
+                "Leche",
+                300.0,
+                IngredientUnit.MILLILITERS
+            ),
+            RecipeIngredient(
+                "Azúcar",
+                50.0,
+                IngredientUnit.GRAMS
+            ),
+            RecipeIngredient(
+                "Canela",
+                2.0,
+                IngredientUnit.GRAMS
+            ),
+            RecipeIngredient(
+                "Yemas de huevo",
+                1.0,
+                IngredientUnit.UNITS
+            ),
+            RecipeIngredient(
+                "Esencia de vainilla",
+                2.0,
+                IngredientUnit.MILLILITERS
+            )
+        )
+    )
+
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?
@@ -201,11 +356,7 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
             }
 
             "botones" -> {
-                showSimpleContent(
-                    view,
-                    "Botones",
-                    "Ejemplos de botones."
-                )
+                showPortionCalculator(view)
             }
 
             else -> {
@@ -553,5 +704,254 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
         } else {
             "https://$address"
         }
+    }
+
+    private fun showPortionCalculator(view: View) {
+
+        val root = view.findViewById<ViewGroup>(
+            R.id.contentRoot
+        )
+
+        root.removeAllViews()
+
+        val calculatorView = LayoutInflater.from(requireContext())
+            .inflate(
+                R.layout.fragment_buttons,
+                root,
+                false
+            )
+
+        root.addView(calculatorView)
+
+        val spinnerRecipe = calculatorView.findViewById<Spinner>(
+            R.id.spinnerRecipe
+        )
+
+        val decreaseButton = calculatorView.findViewById<Button>(
+            R.id.btnDecreasePortion
+        )
+
+        val increaseButton = calculatorView.findViewById<Button>(
+            R.id.btnIncreasePortion
+        )
+
+        val portionCountText = calculatorView.findViewById<TextView>(
+            R.id.tvPortionCount
+        )
+
+        val gramsSwitch = calculatorView.findViewById<SwitchMaterial>(
+            R.id.switchGrams
+        )
+
+        val includeStepsCheckBox = calculatorView.findViewById<CheckBox>(
+            R.id.checkIncludeSteps
+        )
+
+        val resultTitle = calculatorView.findViewById<TextView>(
+            R.id.tvResultTitle
+        )
+
+        val resultIngredients = calculatorView.findViewById<TextView>(
+            R.id.tvResultIngredients
+        )
+
+        val shareButton = calculatorView.findViewById<Button>(
+            R.id.btnShareRecipe
+        )
+
+        val recipeNames = recipes.map {
+            it.name
+        }
+
+        val adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            recipeNames
+        )
+
+        adapter.setDropDownViewResource(
+            android.R.layout.simple_spinner_dropdown_item
+        )
+
+        spinnerRecipe.adapter = adapter
+
+        var portions = 1
+
+        fun updateResult() {
+
+            val selectedPosition = spinnerRecipe.selectedItemPosition
+
+            if (selectedPosition < 0) {
+                return
+            }
+
+            val selectedRecipe = recipes[selectedPosition]
+
+            portionCountText.text = portions.toString()
+
+            resultTitle.text =
+                "Resultado para $portions " +
+                        if (portions == 1) {
+                            "porción"
+                        } else {
+                            "porciones"
+                        }
+
+            val ingredients = recipeIngredients[
+                selectedRecipe.id
+            ] ?: emptyList()
+
+            resultIngredients.text =
+                ingredients.joinToString("\n") { ingredient ->
+
+                    "• ${ingredient.name}: ${
+                        PortionCalculator.formatAmount(
+                            ingredient,
+                            portions,
+                            gramsSwitch.isChecked
+                        )
+                    }"
+                }
+
+            decreaseButton.isEnabled = portions > 1
+        }
+
+        decreaseButton.setOnClickListener {
+
+            if (portions > 1) {
+                portions--
+                updateResult()
+            }
+        }
+
+        increaseButton.setOnClickListener {
+
+            portions++
+            updateResult()
+        }
+
+        spinnerRecipe.onItemSelectedListener =
+            object : android.widget.AdapterView.OnItemSelectedListener {
+
+                override fun onItemSelected(
+                    parent: android.widget.AdapterView<*>?,
+                    selectedView: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    updateResult()
+                }
+
+                override fun onNothingSelected(
+                    parent: android.widget.AdapterView<*>?
+                ) {
+                }
+            }
+
+        gramsSwitch.setOnCheckedChangeListener { _, _ ->
+            updateResult()
+        }
+
+        shareButton.setOnClickListener {
+
+            val selectedPosition =
+                spinnerRecipe.selectedItemPosition
+
+            if (selectedPosition < 0) {
+                return@setOnClickListener
+            }
+
+            val selectedRecipe =
+                recipes[selectedPosition]
+
+            shareRecipe(
+                selectedRecipe,
+                portions,
+                gramsSwitch.isChecked,
+                includeStepsCheckBox.isChecked
+            )
+        }
+
+        updateResult()
+    }
+
+    private fun shareRecipe(
+        recipe: Recipe,
+        portions: Int,
+        showGrams: Boolean,
+        includeSteps: Boolean
+    ) {
+
+        val ingredients = recipeIngredients[
+            recipe.id
+        ] ?: emptyList()
+
+        val ingredientText = ingredients.joinToString("\n") { ingredient ->
+
+            "• ${ingredient.name}: ${
+                PortionCalculator.formatAmount(
+                    ingredient,
+                    portions,
+                    showGrams
+                )
+            }"
+        }
+
+        val portionsText =
+            if (portions == 1) {
+                "1 porción"
+            } else {
+                "$portions porciones"
+            }
+
+        val message = buildString {
+
+            appendLine(recipe.name)
+            appendLine()
+            appendLine(recipe.description)
+            appendLine()
+            appendLine("Cantidad: $portionsText")
+            appendLine()
+            appendLine("Ingredientes:")
+            appendLine(ingredientText)
+
+            if (includeSteps) {
+
+                appendLine()
+                appendLine("Preparación:")
+
+                recipe.steps.forEachIndexed { index, step ->
+
+                    appendLine(
+                        "${index + 1}. $step"
+                    )
+                }
+            }
+        }
+
+        val shareIntent = Intent(
+            Intent.ACTION_SEND
+        ).apply {
+
+            type = "text/plain"
+
+            putExtra(
+                Intent.EXTRA_TEXT,
+                message
+            )
+        }
+
+        startActivity(
+            Intent.createChooser(
+                shareIntent,
+                "Compartir receta"
+            )
+        )
+
+        Toast.makeText(
+            requireContext(),
+            "¡Receta lista para compartir!",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }
