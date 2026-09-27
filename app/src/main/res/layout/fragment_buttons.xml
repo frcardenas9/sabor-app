@@ -59,15 +59,21 @@
 
             <Button
                 android:id="@+id/btnDecreasePortion"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:backgroundTint="#E8F5E9"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:padding="0dp"
                 android:text="−"
-                android:textSize="20sp" />
+                android:textColor="#2E7D32"
+                android:textSize="28sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvPortionCount"
-                android:layout_width="60dp"
-                android:layout_height="50dp"
+                android:layout_width="64dp"
+                android:layout_height="48dp"
                 android:gravity="center"
                 android:text="1"
                 android:textSize="20sp"
@@ -75,10 +81,16 @@
 
             <Button
                 android:id="@+id/btnIncreasePortion"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:backgroundTint="#E8F5E9"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:padding="0dp"
                 android:text="+"
-                android:textSize="20sp" />
+                android:textColor="#2E7D32"
+                android:textSize="28sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
