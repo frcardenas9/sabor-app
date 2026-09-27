@@ -145,8 +145,10 @@
             android:id="@+id/btnShareRecipe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Compartir" />
+            android:backgroundTint="@color/wine"
+            android:text="Compartir"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 
