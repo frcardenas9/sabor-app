@@ -18,14 +18,25 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
         private const val ARG_OPTION = "option"
 
         fun newInstance(option: String): ContentFragment {
+
             return ContentFragment().apply {
+
                 arguments = Bundle().apply {
-                    putString(ARG_OPTION, option)
+
+                    putString(
+                        ARG_OPTION,
+                        option
+                    )
                 }
             }
         }
     }
 
+
+    /*
+     * Lista de recetas disponibles
+     * en SaborApp.
+     */
     private val recipes = listOf(
 
         Recipe(
@@ -36,7 +47,8 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
             servings = 6,
             imageResId = R.drawable.ajiaco,
             videoResId = R.raw.ajiaco,
-            description = "El ajiaco bogotano o santafereño es una sopa típica y tradicional de la región de Bogotá, Cundinamarca, Colombia, a base de pollo y diferentes clases de papa. A diferencia de lo que sugiere su nombre, el ajiaco no es picante.",
+            description =
+                "El ajiaco bogotano o santafereño es una sopa típica y tradicional de la región de Bogotá, Cundinamarca, Colombia, a base de pollo y diferentes clases de papa. A diferencia de lo que sugiere su nombre, el ajiaco no es picante.",
             ingredients = listOf(
                 "1 pollo",
                 "Papa criolla",
@@ -57,6 +69,7 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
             )
         ),
 
+
         Recipe(
             id = 2,
             name = "Arepa de choclo",
@@ -65,7 +78,8 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
             servings = 4,
             imageResId = R.drawable.arepa_choclo,
             videoResId = R.raw.arepa_choclo,
-            description = "La arepa de choclo es una preparación tradicional colombiana elaborada principalmente con maíz tierno. Es común acompañarla con queso y disfrutarla especialmente durante el desayuno o como merienda.",
+            description =
+                "La arepa de choclo es una preparación tradicional colombiana elaborada principalmente con maíz tierno. Es común acompañarla con queso y disfrutarla especialmente durante el desayuno o como merienda.",
             ingredients = listOf(
                 "Mazorca tierna",
                 "Harina de maíz",
@@ -84,6 +98,7 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
             )
         ),
 
+
         Recipe(
             id = 3,
             name = "Sancocho de gallina",
@@ -92,7 +107,8 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
             servings = 8,
             imageResId = R.drawable.sancocho_gallina,
             videoResId = R.raw.sancocho_gallina,
-            description = "El sancocho de gallina es una preparación tradicional colombiana que combina gallina, tubérculos, plátano y otros ingredientes en un caldo abundante y lleno de sabor.",
+            description =
+                "El sancocho de gallina es una preparación tradicional colombiana que combina gallina, tubérculos, plátano y otros ingredientes en un caldo abundante y lleno de sabor.",
             ingredients = listOf(
                 "1 gallina",
                 "Plátano verde",
@@ -113,6 +129,7 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
             )
         ),
 
+
         Recipe(
             id = 4,
             name = "Postre de natas",
@@ -121,7 +138,8 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
             servings = 6,
             imageResId = R.drawable.postre_natas,
             videoResId = R.raw.postre_natas,
-            description = "El postre de natas es una preparación tradicional colombiana elaborada a partir de la nata de la leche y azúcar, con una textura suave y un sabor dulce característico.",
+            description =
+                "El postre de natas es una preparación tradicional colombiana elaborada a partir de la nata de la leche y azúcar, con una textura suave y un sabor dulce característico.",
             ingredients = listOf(
                 "Leche",
                 "Azúcar",
@@ -140,11 +158,16 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
         )
     )
 
+
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?
     ) {
-        super.onViewCreated(view, savedInstanceState)
+
+        super.onViewCreated(
+            view,
+            savedInstanceState
+        )
 
         showOption(
             view,
@@ -152,6 +175,12 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
         )
     }
 
+
+    /*
+     * Determina qué contenido mostrar
+     * según la opción seleccionada
+     * en el menú lateral.
+     */
     private fun showOption(
         view: View,
         option: String?
@@ -159,93 +188,179 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
 
         when (option) {
 
+            /*
+             * Galería de recetas.
+             */
             "fotos" -> {
+
                 showRecipeList(
                     view,
                     "Galería de recetas",
-                    "Toca una receta para ver su descripción",
+                    "Selecciona una receta para conocer sus ingredientes y preparación",
                     false
                 )
             }
 
+
+            /*
+             * Pantalla inicial.
+             */
             "inicio" -> {
-                showDefaultContent(view)
+
+                showDefaultContent(
+                    view
+                )
             }
 
+
+            /*
+             * Perfil del chef.
+             *
+             * Temporalmente se muestra contenido
+             * sencillo. Posteriormente se reemplazará
+             * por fragment_profile.xml.
+             */
             "perfil" -> {
+
                 showSimpleContent(
                     view,
-                    "Perfil",
-                    "Información del perfil."
+                    "Perfil del chef",
+                    "Conoce la trayectoria, experiencia y filosofía culinaria de la autora del recetario."
                 )
             }
 
+
+            /*
+             * Video.
+             *
+             * Se abre directamente el video
+             * de la primera receta para acercarnos
+             * al comportamiento del mockup.
+             */
             "video" -> {
-                showRecipeList(
-                    view,
-                    "Videos de recetas",
-                    "Toca una receta para ver su video",
-                    true
+
+                val root =
+                    view.findViewById<ViewGroup>(
+                        R.id.contentRoot
+                    )
+
+                showRecipeVideo(
+                    root,
+                    recipes.first()
                 )
             }
 
+
+            /*
+             * Sitio web.
+             *
+             * Temporalmente se muestra texto.
+             * Luego implementaremos WebView.
+             */
             "web" -> {
+
                 showSimpleContent(
                     view,
-                    "Web",
-                    "Página web."
+                    "Explorar un sitio web",
+                    "Ingresa una dirección web válida para consultar contenido relacionado con gastronomía."
                 )
             }
 
+
+            /*
+             * Calculadora de porciones.
+             *
+             * Se conserva internamente el nombre
+             * 'botones' para no romper la navegación.
+             */
             "botones" -> {
+
                 showSimpleContent(
                     view,
-                    "Botones",
-                    "Ejemplos de botones."
+                    "Calculadora de porciones",
+                    "Ajusta el número de porciones y recalcula automáticamente las cantidades de los ingredientes."
                 )
             }
 
+
+            /*
+             * Si no existe una opción válida,
+             * se muestra la pantalla de bienvenida.
+             */
             else -> {
-                showDefaultContent(view)
+
+                showDefaultContent(
+                    view
+                )
             }
         }
     }
 
-    private fun showDefaultContent(view: View) {
 
-        val title = view.findViewById<TextView>(
-            R.id.tvContentTitle
-        )
+    /*
+     * Contenido inicial de SaborApp.
+     */
+    private fun showDefaultContent(
+        view: View
+    ) {
 
-        val description = view.findViewById<TextView>(
-            R.id.tvContentDescription
-        )
+        val title =
+            view.findViewById<TextView>(
+                R.id.tvContentTitle
+            )
 
-        title.text = "Bienvenido a SaborApp"
+        val description =
+            view.findViewById<TextView>(
+                R.id.tvContentDescription
+            )
+
+        title.text =
+            "Bienvenido a SaborApp"
 
         description.text =
             "Selecciona una opción del menú."
     }
 
+
+    /*
+     * Muestra contenido textual sencillo.
+     *
+     * Lo utilizamos temporalmente para:
+     *
+     * - Perfil
+     * - Web
+     * - Calculadora de porciones
+     *
+     * hasta crear las interfaces definitivas.
+     */
     private fun showSimpleContent(
         view: View,
         titleText: String,
         descriptionText: String
     ) {
 
-        val title = view.findViewById<TextView>(
-            R.id.tvContentTitle
-        )
+        val title =
+            view.findViewById<TextView>(
+                R.id.tvContentTitle
+            )
 
-        val description = view.findViewById<TextView>(
-            R.id.tvContentDescription
-        )
+        val description =
+            view.findViewById<TextView>(
+                R.id.tvContentDescription
+            )
 
-        title.text = titleText
+        title.text =
+            titleText
 
-        description.text = descriptionText
+        description.text =
+            descriptionText
     }
 
+
+    /*
+     * Muestra la galería/listado
+     * de recetas.
+     */
     private fun showRecipeList(
         view: View,
         titleText: String,
@@ -253,60 +368,100 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
         openVideo: Boolean
     ) {
 
-        val root = view.findViewById<ViewGroup>(
-            R.id.contentRoot
-        )
+        val root =
+            view.findViewById<ViewGroup>(
+                R.id.contentRoot
+            )
 
         root.removeAllViews()
 
-        val recipeListView = LayoutInflater.from(requireContext())
-            .inflate(
-                R.layout.fragment_recipe_list,
-                root,
-                false
-            )
 
-        root.addView(recipeListView)
+        /*
+         * Cargamos el XML correspondiente
+         * a la galería de recetas.
+         */
+        val recipeListView =
+            LayoutInflater
+                .from(requireContext())
+                .inflate(
+                    R.layout.fragment_recipe_list,
+                    root,
+                    false
+                )
 
-        val galleryTitle = recipeListView.findViewById<TextView>(
-            R.id.tvGalleryTitle
+        root.addView(
+            recipeListView
         )
 
-        val gallerySubtitle = recipeListView.findViewById<TextView>(
-            R.id.tvGallerySubtitle
-        )
 
-        galleryTitle.text = titleText
-        gallerySubtitle.text = subtitleText
+        /*
+         * Título y subtítulo.
+         */
+        val galleryTitle =
+            recipeListView
+                .findViewById<TextView>(
+                    R.id.tvGalleryTitle
+                )
 
-        val recyclerView = recipeListView.findViewById<RecyclerView>(
-            R.id.recyclerRecipes
-        )
+        val gallerySubtitle =
+            recipeListView
+                .findViewById<TextView>(
+                    R.id.tvGallerySubtitle
+                )
+
+        galleryTitle.text =
+            titleText
+
+        gallerySubtitle.text =
+            subtitleText
+
+
+        /*
+         * RecyclerView que contiene
+         * las recetas.
+         */
+        val recyclerView =
+            recipeListView
+                .findViewById<RecyclerView>(
+                    R.id.recyclerRecipes
+                )
 
         recyclerView.layoutManager =
-            LinearLayoutManager(requireContext())
+            LinearLayoutManager(
+                requireContext()
+            )
 
-        recyclerView.adapter = RecipeAdapter(
-            recipes
-        ) { recipe ->
 
-            if (openVideo) {
+        /*
+         * Adaptador de recetas.
+         */
+        recyclerView.adapter =
+            RecipeAdapter(
+                recipes
+            ) { recipe ->
 
-                showRecipeVideo(
-                    root,
-                    recipe
-                )
+                if (openVideo) {
 
-            } else {
+                    showRecipeVideo(
+                        root,
+                        recipe
+                    )
 
-                showRecipeDetail(
-                    root,
-                    recipe
-                )
+                } else {
+
+                    showRecipeDetail(
+                        root,
+                        recipe
+                    )
+                }
             }
-        }
     }
 
+
+    /*
+     * Muestra el detalle completo
+     * de una receta seleccionada.
+     */
     private fun showRecipeDetail(
         root: ViewGroup,
         recipe: Recipe
@@ -314,68 +469,128 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
 
         root.removeAllViews()
 
-        val detailView = LayoutInflater.from(requireContext())
-            .inflate(
-                R.layout.fragment_recipe_detail,
-                root,
-                false
-            )
 
-        root.addView(detailView)
+        /*
+         * Cargamos la interfaz
+         * de detalle.
+         */
+        val detailView =
+            LayoutInflater
+                .from(requireContext())
+                .inflate(
+                    R.layout.fragment_recipe_detail,
+                    root,
+                    false
+                )
 
-        val title = detailView.findViewById<TextView>(
-            R.id.tvDetailTitle
+        root.addView(
+            detailView
         )
 
-        val image = detailView.findViewById<ImageView>(
-            R.id.imgDetailRecipe
-        )
 
-        val description = detailView.findViewById<TextView>(
-            R.id.tvDetailDescription
-        )
+        /*
+         * Vinculación de vistas.
+         */
+        val title =
+            detailView
+                .findViewById<TextView>(
+                    R.id.tvDetailTitle
+                )
 
-        val ingredients = detailView.findViewById<TextView>(
-            R.id.tvIngredients
-        )
+        val image =
+            detailView
+                .findViewById<ImageView>(
+                    R.id.imgDetailRecipe
+                )
 
-        val steps = detailView.findViewById<TextView>(
-            R.id.tvSteps
-        )
+        val description =
+            detailView
+                .findViewById<TextView>(
+                    R.id.tvDetailDescription
+                )
 
-        val backButton = detailView.findViewById<Button>(
-            R.id.btnBackToRecipes
-        )
+        val ingredients =
+            detailView
+                .findViewById<TextView>(
+                    R.id.tvIngredients
+                )
 
-        title.text = recipe.name
+        val steps =
+            detailView
+                .findViewById<TextView>(
+                    R.id.tvSteps
+                )
+
+        val backButton =
+            detailView
+                .findViewById<Button>(
+                    R.id.btnBackToRecipes
+                )
+
+
+        /*
+         * Información de la receta.
+         */
+        title.text =
+            recipe.name
 
         image.setImageResource(
             recipe.imageResId
         )
 
-        description.text = recipe.description
+        description.text =
+            recipe.description
 
-        ingredients.text = recipe.ingredients.joinToString(
-            separator = "\n"
-        ) { ingredient ->
-            "• $ingredient"
-        }
 
-        steps.text = recipe.steps.mapIndexed { index, step ->
-            "${index + 1}. $step"
-        }.joinToString("\n")
+        /*
+         * Ingredientes.
+         */
+        ingredients.text =
+            recipe.ingredients
+                .joinToString(
+                    separator = "\n"
+                ) { ingredient ->
 
+                    "• $ingredient"
+                }
+
+
+        /*
+         * Pasos de preparación.
+         */
+        steps.text =
+            recipe.steps
+                .mapIndexed {
+                        index,
+                        step ->
+
+                    "${index + 1}. $step"
+
+                }
+                .joinToString(
+                    "\n"
+                )
+
+
+        /*
+         * Regresar a la galería.
+         */
         backButton.setOnClickListener {
 
             showRecipeList(
                 root,
                 "Galería de recetas",
-                "Toca una receta para ver su descripción",
+                "Selecciona una receta para conocer sus ingredientes y preparación",
                 false
             )
         }
     }
 
+
+    /*
+     * Muestra el video correspondiente
+     * a una receta.
+     */
     private fun showRecipeVideo(
         root: ViewGroup,
         recipe: Recipe
@@ -383,73 +598,143 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
 
         root.removeAllViews()
 
-        val videoView = LayoutInflater.from(requireContext())
-            .inflate(
-                R.layout.fragment_recipe_video,
-                root,
-                false
-            )
 
-        root.addView(videoView)
+        /*
+         * Cargamos la interfaz
+         * del reproductor.
+         */
+        val videoView =
+            LayoutInflater
+                .from(requireContext())
+                .inflate(
+                    R.layout.fragment_recipe_video,
+                    root,
+                    false
+                )
 
-        val title = videoView.findViewById<TextView>(
-            R.id.tvVideoRecipeTitle
+        root.addView(
+            videoView
         )
 
-        val category = videoView.findViewById<TextView>(
-            R.id.chipCategory
-        )
 
-        val time = videoView.findViewById<TextView>(
-            R.id.chipTime
-        )
+        /*
+         * Vinculación de vistas.
+         */
+        val title =
+            videoView
+                .findViewById<TextView>(
+                    R.id.tvVideoRecipeTitle
+                )
 
-        val servings = videoView.findViewById<TextView>(
-            R.id.chipServings
-        )
+        val category =
+            videoView
+                .findViewById<TextView>(
+                    R.id.chipCategory
+                )
 
-        val description = videoView.findViewById<TextView>(
-            R.id.tvVideoDescription
-        )
+        val time =
+            videoView
+                .findViewById<TextView>(
+                    R.id.chipTime
+                )
 
-        val backButton = videoView.findViewById<Button>(
-            R.id.btnBackToVideoRecipes
-        )
+        val servings =
+            videoView
+                .findViewById<TextView>(
+                    R.id.chipServings
+                )
 
-        val playerView = videoView.findViewById<androidx.media3.ui.PlayerView>(
-            R.id.playerView
-        )
+        val description =
+            videoView
+                .findViewById<TextView>(
+                    R.id.tvVideoDescription
+                )
 
-        title.text = "${recipe.name} paso a paso"
+        val backButton =
+            videoView
+                .findViewById<Button>(
+                    R.id.btnBackToVideoRecipes
+                )
 
-        category.text = recipe.category
+        val playerView =
+            videoView
+                .findViewById<androidx.media3.ui.PlayerView>(
+                    R.id.playerView
+                )
 
-        time.text = "${recipe.preparationTime} mins"
 
-        servings.text = "${recipe.servings} porciones"
+        /*
+         * Información de la receta.
+         */
+        title.text =
+            "${recipe.name} paso a paso"
+
+        category.text =
+            recipe.category
+
+        time.text =
+            "${recipe.preparationTime} min"
+
+        servings.text =
+            "${recipe.servings} porciones"
 
         description.text =
             "En este video podrás conocer el proceso de preparación de ${recipe.name}, desde los primeros pasos hasta el resultado final."
 
-        val player = androidx.media3.exoplayer.ExoPlayer.Builder(
-            requireContext()
-        ).build()
 
-        playerView.player = player
+        /*
+         * Creamos el reproductor.
+         */
+        val player =
+            androidx.media3.exoplayer.ExoPlayer
+                .Builder(
+                    requireContext()
+                )
+                .build()
 
-        val videoUri = android.net.Uri.parse(
-            "android.resource://${requireContext().packageName}/${recipe.videoResId}"
-        )
+        playerView.player =
+            player
 
+
+        /*
+         * Localización del video
+         * almacenado en res/raw.
+         */
+        val videoUri =
+            android.net.Uri.parse(
+                "android.resource://${requireContext().packageName}/${recipe.videoResId}"
+            )
+
+
+        /*
+         * Creamos el elemento multimedia.
+         */
         val mediaItem =
-            androidx.media3.common.MediaItem.fromUri(videoUri)
+            androidx.media3.common.MediaItem
+                .fromUri(
+                    videoUri
+                )
 
-        player.setMediaItem(mediaItem)
+        player.setMediaItem(
+            mediaItem
+        )
 
         player.prepare()
 
-        player.playWhenReady = false
+        /*
+         * El video no inicia automáticamente.
+         */
+        player.playWhenReady =
+            false
 
+
+        /*
+         * Temporalmente conservamos el botón
+         * para regresar al listado de videos.
+         *
+         * Más adelante podemos eliminarlo
+         * para reproducir fielmente el mockup.
+         */
         backButton.setOnClickListener {
 
             player.release()
@@ -462,18 +747,28 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
             )
         }
 
+
+        /*
+         * Liberamos ExoPlayer cuando
+         * la vista deja de estar visible.
+         */
         videoView.addOnAttachStateChangeListener(
-            object : View.OnAttachStateChangeListener {
+
+            object :
+                View.OnAttachStateChangeListener {
 
                 override fun onViewAttachedToWindow(
                     v: View
                 ) {
-                    // No necesitamos hacer nada.
+
+                    // No es necesario realizar ninguna acción.
                 }
+
 
                 override fun onViewDetachedFromWindow(
                     v: View
                 ) {
+
                     player.release()
                 }
             }

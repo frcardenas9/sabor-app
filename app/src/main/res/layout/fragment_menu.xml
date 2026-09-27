@@ -3,57 +3,133 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/cream_menu"
+    android:fillViewport="true"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:paddingStart="12dp"
+        android:paddingTop="18dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="18dp">
 
+        <!-- Título del menú -->
         <TextView
+            android:id="@+id/tvMenuTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:text="Menú"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:text="SECCIONES"
+            android:textColor="@color/wine"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.08"
+            android:layout_marginBottom="14dp" />
 
+        <!-- INICIO -->
         <Button
             android:id="@+id/btnInicio"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Inicio" />
+            android:layout_height="46dp"
+            android:layout_marginBottom="4dp"
+            android:backgroundTint="@android:color/transparent"
+            android:gravity="center_vertical|start"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="6dp"
+            android:text="Inicio"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="14sp" />
 
+        <!-- PERFIL -->
         <Button
             android:id="@+id/btnPerfil"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Perfil" />
+            android:layout_height="46dp"
+            android:layout_marginBottom="4dp"
+            android:backgroundTint="@android:color/transparent"
+            android:gravity="center_vertical|start"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="6dp"
+            android:text="Perfil"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="14sp" />
 
+        <!-- FOTOS -->
         <Button
             android:id="@+id/btnFotos"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Fotos" />
+            android:layout_height="46dp"
+            android:layout_marginBottom="4dp"
+            android:backgroundTint="@android:color/transparent"
+            android:gravity="center_vertical|start"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="6dp"
+            android:text="Fotos"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="14sp" />
 
+        <!-- VIDEO -->
         <Button
             android:id="@+id/btnVideo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Video" />
+            android:layout_height="46dp"
+            android:layout_marginBottom="4dp"
+            android:backgroundTint="@android:color/transparent"
+            android:gravity="center_vertical|start"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="6dp"
+            android:text="Video"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="14sp" />
 
+        <!-- WEB -->
         <Button
             android:id="@+id/btnWeb"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Web" />
+            android:layout_height="46dp"
+            android:layout_marginBottom="4dp"
+            android:backgroundTint="@android:color/transparent"
+            android:gravity="center_vertical|start"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="6dp"
+            android:text="Web"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="14sp" />
 
+        <!-- BOTONES / CALCULADORA -->
         <Button
             android:id="@+id/btnBotones"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Botones" />
+            android:layout_height="46dp"
+            android:layout_marginBottom="4dp"
+            android:backgroundTint="@android:color/transparent"
+            android:gravity="center_vertical|start"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="6dp"
+            android:text="Botones"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="14sp" />
 
     </LinearLayout>
 
