@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter
 import android.widget.CheckBox
 import android.widget.Spinner
 import com.google.android.material.switchmaterial.SwitchMaterial
+import android.widget.ScrollView
 
 class ContentFragment : Fragment(R.layout.fragment_content) {
 
@@ -335,11 +336,7 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
             }
 
             "perfil" -> {
-                showSimpleContent(
-                    view,
-                    "Perfil",
-                    "Información del perfil."
-                )
+                showProfileContent(view)
             }
 
             "video" -> {
@@ -1054,5 +1051,66 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
             "¡Receta lista para compartir!",
             Toast.LENGTH_SHORT
         ).show()
+    }
+
+    private fun showProfileContent(view: View) {
+
+        val root = view.findViewById<ViewGroup>(
+            R.id.contentRoot
+        )
+
+        root.removeAllViews()
+
+        val profileView = LayoutInflater.from(requireContext())
+            .inflate(
+                R.layout.fragment_profile,
+                root,
+                false
+            )
+
+        root.addView(profileView)
+
+        val studiesScroll = profileView.findViewById<ScrollView>(
+            R.id.studiesScroll
+        )
+
+        val experienceScroll = profileView.findViewById<ScrollView>(
+            R.id.experienceScroll
+        )
+
+        enableInnerScroll(studiesScroll)
+        enableInnerScroll(experienceScroll)
+    }
+
+    private fun enableInnerScroll(
+        scrollView: ScrollView
+    ) {
+
+        scrollView.setOnTouchListener { view, event ->
+
+            when (event.actionMasked) {
+
+                android.view.MotionEvent.ACTION_DOWN -> {
+
+                    view.parent
+                        ?.requestDisallowInterceptTouchEvent(true)
+                }
+
+                android.view.MotionEvent.ACTION_MOVE -> {
+
+                    view.parent
+                        ?.requestDisallowInterceptTouchEvent(true)
+                }
+
+                android.view.MotionEvent.ACTION_UP,
+                android.view.MotionEvent.ACTION_CANCEL -> {
+
+                    view.parent
+                        ?.requestDisallowInterceptTouchEvent(false)
+                }
+            }
+
+            false
+        }
     }
 }
