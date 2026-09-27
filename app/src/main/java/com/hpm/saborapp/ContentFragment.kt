@@ -371,14 +371,76 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
             R.id.tvContentTitle
         )
 
+        val subtitle = view.findViewById<TextView>(
+            R.id.tvContentSubtitle
+        )
+
+        val descriptionTitle = view.findViewById<TextView>(
+            R.id.tvDescriptionTitle
+        )
+
         val description = view.findViewById<TextView>(
             R.id.tvContentDescription
         )
 
-        title.text = "Bienvenido a SaborApp"
+        val whatYouFindTitle = view.findViewById<TextView>(
+            R.id.tvWhatYouFindTitle
+        )
+
+        val whatYouFind = view.findViewById<TextView>(
+            R.id.tvWhatYouFind
+        )
+
+        val aboutTitle = view.findViewById<TextView>(
+            R.id.tvAboutTitle
+        )
+
+        val about = view.findViewById<TextView>(
+            R.id.tvAbout
+        )
+
+        val icon = view.findViewById<ImageView>(
+            R.id.imgSaborApp
+        )
+
+        icon.visibility = View.VISIBLE
+
+        title.text = "SaborApp"
+
+        subtitle.text = "Tu recetario digital"
+
+        descriptionTitle.visibility = View.VISIBLE
+        description.visibility = View.VISIBLE
+
+        whatYouFindTitle.visibility = View.VISIBLE
+        whatYouFind.visibility = View.VISIBLE
+
+        aboutTitle.visibility = View.VISIBLE
+        about.visibility = View.VISIBLE
+
+        descriptionTitle.text = "Descripción"
 
         description.text =
-            "Selecciona una opción del menú."
+            "SaborApp es un recetario digital diseñado para " +
+                    "consultar y explorar diferentes preparaciones " +
+                    "culinarias de manera sencilla y organizada."
+
+        whatYouFindTitle.text = "¿Qué encontrarás?"
+
+        whatYouFind.text =
+            "• Recetas con ingredientes y preparación\n" +
+                    "• Fotografías de las preparaciones\n" +
+                    "• Videos relacionados con las recetas\n" +
+                    "• Y mucho más..."
+
+        aboutTitle.text = "Sobre el recetario"
+
+        about.text =
+            "Nuestro objetivo es reunir diferentes preparaciones " +
+                    "en un solo espacio digital, facilitando la consulta " +
+                    "de ingredientes, procedimientos y recursos " +
+                    "multimedia para acompañar al usuario durante la " +
+                    "preparación de sus recetas."
     }
 
     private fun showSimpleContent(
@@ -391,13 +453,52 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
             R.id.tvContentTitle
         )
 
+        val subtitle = view.findViewById<TextView>(
+            R.id.tvContentSubtitle
+        )
+
+        val descriptionTitle = view.findViewById<TextView>(
+            R.id.tvDescriptionTitle
+        )
+
         val description = view.findViewById<TextView>(
             R.id.tvContentDescription
         )
 
+        val whatYouFindTitle = view.findViewById<TextView>(
+            R.id.tvWhatYouFindTitle
+        )
+
+        val whatYouFind = view.findViewById<TextView>(
+            R.id.tvWhatYouFind
+        )
+
+        val aboutTitle = view.findViewById<TextView>(
+            R.id.tvAboutTitle
+        )
+
+        val about = view.findViewById<TextView>(
+            R.id.tvAbout
+        )
+
+        val icon = view.findViewById<ImageView>(
+            R.id.imgSaborApp
+        )
+
+        icon.visibility = View.GONE
+
         title.text = titleText
 
-        description.text = descriptionText
+        subtitle.text = descriptionText
+
+        descriptionTitle.visibility = View.GONE
+        description.visibility = View.GONE
+
+        whatYouFindTitle.visibility = View.GONE
+        whatYouFind.visibility = View.GONE
+
+        aboutTitle.visibility = View.GONE
+        about.visibility = View.GONE
     }
 
     private fun showRecipeList(
